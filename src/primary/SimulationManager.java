@@ -11,15 +11,6 @@ public class SimulationManager {
 	public static List<Person> populationList = new ArrayList<Person>();
 	public static List<Transaction> transactionList = new ArrayList<Transaction>();
 	public static List<Person> grocerList = new ArrayList<Person>();
-
-//	class Transaction{
-//		int transactionNumber;
-//		int dayOfTransaction;
-//		String buyer;
-//		String seller;
-//		String itemBought;
-//		int quantity;
-//	}
 	
 	public SimulationManager() {
 	}
@@ -32,12 +23,18 @@ public class SimulationManager {
 		day++;
 		while(day <= daysToRun) {
 			System.out.println("Day: " + day);
-			checkResourceFluctuation();
 			peopleUseResources();
 			checkPeoplesResources();
+//			checkResourceFluctuation();
 //			returnInfo();
-			reviewOnePerson();
-			
+//			reviewOnePerson();
+		}
+		printAllVegAmountOfAllPeople();
+	}
+	
+	public void printAllVegAmountOfAllPeople() {
+		for(Person person : populationList) {
+			System.out.println(person.getVegetarianFoodAmount());
 		}
 	}
 	
@@ -82,7 +79,7 @@ public class SimulationManager {
 	}
 	
 	public void createPeople(int populationSize) {
-		System.out.println("createPeople method reached");
+//		System.out.println("createPeople method reached");
 		
 		int indexOfPerson = 0;
 		
@@ -107,11 +104,11 @@ public class SimulationManager {
 		double grocerDouble = populationSize * grocerPercent;
 		int grocerInt = (int) Math.round(grocerDouble);
 		
-		System.out.println("Number of Farmers: " + farmerInt);
-		System.out.println("Number of Builders: " + builderInt);
-		System.out.println("Number of Butchers: " + butcherInt);
-		System.out.println("Number of Doctors: " + doctorInt);
-		System.out.println("Number of Grocers: " + grocerInt);
+//		System.out.println("Number of Farmers: " + farmerInt);
+//		System.out.println("Number of Builders: " + builderInt);
+//		System.out.println("Number of Butchers: " + butcherInt);
+//		System.out.println("Number of Doctors: " + doctorInt);
+//		System.out.println("Number of Grocers: " + grocerInt);
 						
 		// construct persons and assign ids and occupations
 		

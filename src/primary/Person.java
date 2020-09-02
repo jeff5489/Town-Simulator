@@ -2,14 +2,6 @@ package primary;
 // finish should person buy methods
 
 public class Person {
-	
-//	enum occupation {
-//		FARMER,
-//		BUILDER,
-//		BUTCHER,
-//		DOCTOR,
-//		GROCER
-//	}
 
 	int id;
 	int age = 18;
@@ -39,13 +31,16 @@ public class Person {
 	}
 	
 	public void decideToBuySomething() {
-		shouldPersonBuyVegFood();
-//		shouldPersonBuyMeat();
-//		shouldPersonBuyBuilderService();
-//		shouldPersonBuyDoctorService();
+		
+		Person buyer = SimulationManager.populationList.get(indexOfPersonInPopulationList);
+		
+		shouldPersonBuyVegFood(buyer);
+//		shouldPersonBuyMeat(buyer);
+//		shouldPersonBuyBuilderService(buyer);
+//		shouldPersonBuyDoctorService(buyer);
 	}
 	
-	public void createTransaction(int indexOfBuyerInPopulationList, int indexOfSellerInPopulationList, 
+	public void createTransaction(Person buyer, Person seller, int indexOfBuyerInPopulationList, int indexOfSellerInPopulationList, 
 			int idOfBuyer, ProductOrServiceName itemBought, int quantity, double price) {
 		Transaction transaction = new Transaction(indexOfBuyerInPopulationList, indexOfSellerInPopulationList, 
 				idOfBuyer, itemBought, quantity, price);
@@ -54,24 +49,25 @@ public class Person {
 		transaction.transactionNumber = SimulationManager.currentTransactionNumber;
 		SimulationManager.currentTransactionNumber++;
 		SimulationManager.transactionList.add(transaction);
-		transaction.reallocateResources();
+		transaction.reallocateResources(buyer, seller);
 	}
 	
-	public boolean shouldPersonBuyVegFood() {
+	public boolean shouldPersonBuyVegFood(Person buyer) {
 		ProductOrServiceName productOrService = ProductOrServiceName.VEGETARIANFOOD;
-		int minVegAmount = 1;
+		int minVegAmount = 2;
 		int maxVegAmount = 4;
-		int randVegAmount = minVegAmount + (int)(Math.random() * ((maxVegAmount - minVegAmount) + 1));
+		int randVegAmount = 1 + (int)(Math.random() * ((maxVegAmount - minVegAmount) + 1));
+		if(randVegAmount <= 0) {
+			System.out.println("Error Person/shouldPersonBuyVegFood randVegAmount should be positive.");
+			System.out.println("randVegAmount: " + randVegAmount);
+		}
 		double price = ProductOrServicePrice.vegPrice;
-//		System.out.println("this.vegetarianFoodAmount: " + this.vegetarianFoodAmount);
-//		System.out.println("randVegAmount: " + randVegAmount);
 		boolean trueOrFalse;
-		if(this.vegetarianFoodAmount <= randVegAmount) {
-			
+		if(vegetarianFoodAmount <= randVegAmount) {
 			int indexOfGrocerInPopulationList = (int)(Math.random() * ((SimulationManager.grocerList.size() - 0)));
-//			System.out.println("indexOfGrocerInPopulationList: " + indexOfGrocerInPopulationList);
-//			System.out.println("indexOfPersonInPopulationList: " + indexOfPersonInPopulationList);
-			createTransaction(indexOfPersonInPopulationList, indexOfGrocerInPopulationList, id, productOrService, 
+
+			Person seller = SimulationManager.populationList.get(indexOfGrocerInPopulationList);
+			createTransaction(buyer, seller, indexOfPersonInPopulationList, indexOfGrocerInPopulationList, id, productOrService, 
 					randVegAmount, price);
 			trueOrFalse = true;
 		}else {
@@ -128,6 +124,10 @@ public class Person {
 	public void setVegetarianFoodAmount(int vegetarianFoodAmount) {
 		this.vegetarianFoodAmount = vegetarianFoodAmount;
 	}
+	
+	public void addToVegetarianFoodAmount(int amountToAdd) {
+		this.vegetarianFoodAmount += amountToAdd;
+	}
 
 	public int getMeatFoodAmount() {
 		return meatFoodAmount;
@@ -169,13 +169,9 @@ public class Person {
 		this.age = age;
 	}
 
-	@Override
-	public String toString() {
-		return "Person [id=" + id + ", age=" + age + ", occupation=" + occupation
-				+ ", indexOfPersonInPopulationList=" + indexOfPersonInPopulationList + ", money=" + money
-				+ ", vegetarianFoodAmount=" + vegetarianFoodAmount + ", meatFoodAmount=" + meatFoodAmount
-				+ ", homeQuality=" + homeQuality + ", health=" + health + ", cropAmount=" + cropAmount + ", simManager="
-				+ simManager + "]";
+	public String toString2() {
+		return "Person [id=" + id + ", indexOfPersonInPopulationList=" + indexOfPersonInPopulationList
+				+ ", vegetarianFoodAmount=" + vegetarianFoodAmount + "]";
 	}
 	
 	public String toStringMinimal() {
