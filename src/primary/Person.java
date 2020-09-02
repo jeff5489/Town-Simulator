@@ -1,12 +1,10 @@
 package primary;
-// finish should person buy methods
 
 public class Person {
 
 	int id;
 	int age = 18;
 	Occupations occupation;
-//	String name = parseInt(id) + occupation.toString();
 	int indexOfPersonInPopulationList;
 	double money = 100;
 	int vegetarianFoodAmount = 2;
@@ -18,11 +16,6 @@ public class Person {
 	SimulationManager simManager = new SimulationManager();
 	
 	public Person() {}
-	
-	private String parseInt(int id2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public Person(int id, Occupations occupation) {
 		super();
@@ -65,7 +58,6 @@ public class Person {
 		boolean trueOrFalse;
 		if(vegetarianFoodAmount <= randVegAmount) {
 			int indexOfGrocerInPopulationList = (int)(Math.random() * ((SimulationManager.grocerList.size() - 0)));
-
 			Person seller = SimulationManager.populationList.get(indexOfGrocerInPopulationList);
 			createTransaction(buyer, seller, indexOfPersonInPopulationList, indexOfGrocerInPopulationList, id, productOrService, 
 					randVegAmount, price);

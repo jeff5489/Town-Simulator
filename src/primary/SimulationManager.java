@@ -22,7 +22,7 @@ public class SimulationManager {
 		createPeople(populationSize);
 		day++;
 		while(day <= daysToRun) {
-			System.out.println("Day: " + day);
+//			System.out.println("Day: " + day);
 			peopleUseResources();
 			checkPeoplesResources();
 //			checkResourceFluctuation();
@@ -30,9 +30,18 @@ public class SimulationManager {
 //			reviewOnePerson();
 		}
 		printAllVegAmountOfAllPeople();
+//		printMoneyOfAllPeople();
+	}
+	
+	public void printMoneyOfAllPeople() {
+		System.out.println("printMoneyOfAllPeople() reached");
+		for(Person person : populationList) {
+			System.out.println(person.getMoney());
+		}
 	}
 	
 	public void printAllVegAmountOfAllPeople() {
+		System.out.println("printAllVegAmountOfAllPeople() reached");
 		for(Person person : populationList) {
 			System.out.println(person.getVegetarianFoodAmount());
 		}

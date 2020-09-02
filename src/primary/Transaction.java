@@ -23,18 +23,19 @@ public class Transaction {
 		this.priceOfProductOrService = priceOfProductOrService;
 		this.indexOfBuyerInPopulationList = indexOfBuyerInPopulationList;
 		this.indexOfSellerInPopulationList = indexOfSellerInPopulationList;
+		this.amountOfTransaction = quantity * priceOfProductOrService;
 	}
 	
 	public void reallocateResources(Person buyer, Person seller) {
 		
-//		decreaseBuyerMoney(buyer, seller);
+		decreaseBuyerMoney(buyer);
 		increaseProductOrServiceOfBuyer(buyer, seller);
-//		decreaseSellerStock(buyer, seller);
-//		increaseSellerMoney(buyer, seller);
+		decreaseSellerStock(seller);
+		increaseSellerMoney(seller);
 	}
 	
-	public void decreaseBuyerMoney() {
-//		buyer.decreaseMoney(amountOfTransaction);
+	public void decreaseBuyerMoney(Person buyer) {
+		buyer.decreaseMoney(amountOfTransaction);
 	}
 	public void increaseProductOrServiceOfBuyer(Person buyer, Person seller) {
 		ProductOrServiceName itemBought = this.itemBought;
@@ -78,12 +79,12 @@ public class Transaction {
 		}
 	}
 
-	public void decreaseSellerStock() {
+	public void decreaseSellerStock(Person seller) {
 		ProductOrServiceName itemBought = this.itemBought;
 		switch (itemBought) {
 		case VEGETARIANFOOD:
-//			int newVegFoodAmount = seller.vegetarianFoodAmount - quantity;
-//			seller.setVegetarianFoodAmount(newVegFoodAmount);
+			int newVegFoodAmount = seller.vegetarianFoodAmount - quantity;
+			seller.setVegetarianFoodAmount(newVegFoodAmount);
 			break;
 		case CROPS:
 //			int newCropAmount = seller.cropAmount - quantity;
@@ -99,7 +100,7 @@ public class Transaction {
 			break;
 		}
 	}
-	public void increaseSellerMoney() {
-//		seller.increaseMoney(amountOfTransaction);
+	public void increaseSellerMoney(Person seller) {
+		seller.increaseMoney(amountOfTransaction);
 	}
 }
