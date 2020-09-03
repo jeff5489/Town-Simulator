@@ -2,6 +2,9 @@ package primary;
 import java.util.ArrayList;
 import java.util.List;
 
+import productionOccupations.Butcher;
+import productionOccupations.Farmer;
+
 public class SimulationManager {
 	
 	public static int populationSize;
@@ -11,6 +14,8 @@ public class SimulationManager {
 	public static List<Person> populationList = new ArrayList<Person>();
 	public static List<Transaction> transactionList = new ArrayList<Transaction>();
 	public static List<Person> grocerList = new ArrayList<Person>();
+	public static List<Butcher> butcherList = new ArrayList<Butcher>();
+	public static List<Farmer> farmerList = new ArrayList<Farmer>();
 	
 	public SimulationManager() {
 	}
@@ -23,6 +28,7 @@ public class SimulationManager {
 		day++;
 		while(day <= daysToRun) {
 //			System.out.println("Day: " + day);
+			productOccupationsProduceProducts();
 			peopleUseResources();
 			checkPeoplesResources();
 //			checkResourceFluctuation();
@@ -31,6 +37,15 @@ public class SimulationManager {
 		}
 		printAllVegAmountOfAllPeople();
 //		printMoneyOfAllPeople();
+	}
+	
+	public void productOccupationsProduceProducts() {
+		for(Butcher butcher : butcherList) {
+			butcher.produce();
+		}
+		for(Farmer farmer : farmerList) {
+			farmer.addToVegetarianFoodAmount(50); 
+		}
 	}
 	
 	public void printMoneyOfAllPeople() {
@@ -122,10 +137,11 @@ public class SimulationManager {
 		// construct persons and assign ids and occupations
 		
 		for(int i = 0; i < farmerInt; i++) {
-			Person person = new Person(indexOfPerson, Occupations.FARMER);
-			person.indexOfPersonInPopulationList = indexOfPerson;
+			Farmer farmer = new Farmer(indexOfPerson, Occupations.FARMER);
+			farmer.setIndexOfPersonInPopulationList(indexOfPerson);
 			indexOfPerson++;
-			populationList.add(person);
+			farmerList.add(farmer);
+			populationList.add(farmer);
 		}
 		for(int i = 0; i < builderInt; i++) {
 			Person person = new Person(indexOfPerson, Occupations.BUILDER);
@@ -134,10 +150,11 @@ public class SimulationManager {
 			populationList.add(person);
 		}
 		for(int i = 0; i < butcherInt; i++) {
-			Person person = new Person(indexOfPerson, Occupations.BUTCHER);
-			person.indexOfPersonInPopulationList = indexOfPerson;
+			Butcher butcher = new Butcher(indexOfPerson, Occupations.BUTCHER);
+			butcher.setIndexOfPersonInPopulationList(indexOfPerson);
 			indexOfPerson++;
-			populationList.add(person);
+			butcherList.add(butcher);
+			populationList.add(butcher);
 		}
 		for(int i = 0; i < doctorInt; i++) {
 			Person person = new Person(indexOfPerson, Occupations.DOCTOR);

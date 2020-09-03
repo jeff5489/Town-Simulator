@@ -1,4 +1,21 @@
-// grocers have negative veg amount in SimTest
+// grocers have negative veg amount in SimTest,
+
+// To Do
+// test createTransaction in Person class
+// butcher and farmers need to produce meat and crops  READ READ READ READ READ READ READ READ 
+// grocers need to buy from farmers
+// all people need to buy meat
+// home quality needs to decrease over time
+// home quality needs to be purchased from builders
+// health needs to decrease over time
+// health needs to be purchased from doctors
+// deduct taxes from each person
+
+// person can't buy something if seller hasn't produced it yet
+
+// determine how much value each occupation can produce
+// people can't work or produce value without the resources needed for their jobs
+// create logic for supply and demand? 
 
 package primary;
 import java.util.ArrayList;

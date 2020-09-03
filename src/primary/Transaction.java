@@ -3,8 +3,8 @@ package primary;
 public class Transaction {
 	public int transactionNumber;
 	public int dayOfTransaction;
-	public int idOfBuyer;
-	public int idOfSeller;
+//	public int idOfBuyer;
+//	public int idOfSeller;
 	public ProductOrServiceName itemBought;
 	public int quantity;
 	public double priceOfProductOrService;
@@ -14,10 +14,10 @@ public class Transaction {
 	
 	public Transaction() {};
 			
-	public Transaction(int indexOfBuyerInPopulationList, int indexOfSellerInPopulationList, int idOfBuyer, 
+	public Transaction(int indexOfBuyerInPopulationList, int indexOfSellerInPopulationList, 
 			ProductOrServiceName itemBought, int quantity, double priceOfProductOrService) {
 		super();
-		this.idOfBuyer = idOfBuyer;
+//		this.idOfBuyer = idOfBuyer;
 		this.itemBought = itemBought;
 		this.quantity = quantity;
 		this.priceOfProductOrService = priceOfProductOrService;

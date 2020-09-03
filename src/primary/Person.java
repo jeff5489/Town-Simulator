@@ -14,18 +14,23 @@ public class Person {
 	int cropAmount = 0;
 	
 	SimulationManager simManager = new SimulationManager();
+//	protected Person buyer = SimulationManager.populationList.get(indexOfPersonInPopulationList);
+//	protected Person buyer;
 	
-	public Person() {}
+	public Person() {
+//		buyer = SimulationManager.populationList.get(indexOfPersonInPopulationList);
+	}
 
 	public Person(int id, Occupations occupation) {
 		super();
 		this.id = id;
 		this.occupation = occupation;
+//		this.buyer = SimulationManager.populationList.get(indexOfPersonInPopulationList);
 	}
 	
 	public void decideToBuySomething() {
-		
 		Person buyer = SimulationManager.populationList.get(indexOfPersonInPopulationList);
+
 		
 		shouldPersonBuyVegFood(buyer);
 //		shouldPersonBuyMeat(buyer);
@@ -33,16 +38,17 @@ public class Person {
 //		shouldPersonBuyDoctorService(buyer);
 	}
 	
-	public void createTransaction(Person buyer, Person seller, int indexOfBuyerInPopulationList, int indexOfSellerInPopulationList, 
-			int idOfBuyer, ProductOrServiceName itemBought, int quantity, double price) {
+	public Transaction createTransaction(Person buyer, Person seller, int indexOfBuyerInPopulationList, int indexOfSellerInPopulationList, 
+			ProductOrServiceName itemBought, int quantity, double price) {
 		Transaction transaction = new Transaction(indexOfBuyerInPopulationList, indexOfSellerInPopulationList, 
-				idOfBuyer, itemBought, quantity, price);
-		transaction.idOfSeller = (int)(Math.random() * ((SimulationManager.grocerList.size() - 0)));
+				itemBought, quantity, price);
+//		transaction.idOfSeller = (int)(Math.random() * ((SimulationManager.grocerList.size() - 0)));
 		transaction.dayOfTransaction = SimulationManager.day;
 		transaction.transactionNumber = SimulationManager.currentTransactionNumber;
 		SimulationManager.currentTransactionNumber++;
 		SimulationManager.transactionList.add(transaction);
 		transaction.reallocateResources(buyer, seller);
+		return transaction;
 	}
 	
 	public boolean shouldPersonBuyVegFood(Person buyer) {
@@ -59,7 +65,7 @@ public class Person {
 		if(vegetarianFoodAmount <= randVegAmount) {
 			int indexOfGrocerInPopulationList = (int)(Math.random() * ((SimulationManager.grocerList.size() - 0)));
 			Person seller = SimulationManager.populationList.get(indexOfGrocerInPopulationList);
-			createTransaction(buyer, seller, indexOfPersonInPopulationList, indexOfGrocerInPopulationList, id, productOrService, 
+			createTransaction(buyer, seller, indexOfPersonInPopulationList, indexOfGrocerInPopulationList, productOrService, 
 					randVegAmount, price);
 			trueOrFalse = true;
 		}else {
@@ -127,6 +133,20 @@ public class Person {
 
 	public void setMeatFoodAmount(int meatFoodAmount) {
 		this.meatFoodAmount = meatFoodAmount;
+	}
+	public void addMeatFood(int meatFoodAmount) {
+		this.meatFoodAmount += meatFoodAmount;
+	}
+	public void deductMeatFood(int meatFoodAmount) {
+		this.meatFoodAmount -= meatFoodAmount;
+	}
+
+	public int getIndexOfPersonInPopulationList() {
+		return indexOfPersonInPopulationList;
+	}
+
+	public void setIndexOfPersonInPopulationList(int indexOfPersonInPopulationList) {
+		this.indexOfPersonInPopulationList = indexOfPersonInPopulationList;
 	}
 
 	public int getHomeQuality() {
