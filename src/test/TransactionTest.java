@@ -13,17 +13,39 @@ import primary.ProductOrServiceName;
 
 class TransactionTest {
 	
-//	int indexOfBuyerInPopulationList, int indexOfSellerInPopulationList, int idOfBuyer, 
-//	ProductOrServiceName itemBought, int quantity, double priceOfProductOrService
+//	(int indexOfBuyerInPopulationList, int indexOfSellerInPopulationList, 
+//			ProductOrServiceName itemBought, int quantity, double priceOfProductOrService)
 	
+	@Test
+	void decreaseSellerStockTest() {
+		SimulationManager sim = new SimulationManager();
+		sim.runSimulation(10, 10);
+		Transaction trans = new Transaction(0, 1, ProductOrServiceName.VEGETARIANFOOD, 2 , 5);
+//		trans.itemBought = ProductOrServiceName.VEGETARIANFOOD;
+		Person tom = new Person();
+		tom.setVegetarianFoodAmount(2);
+		trans.decreaseSellerStock(tom);
+		assertEquals(0, tom.getVegetarianFoodAmount(), "money should be equal to 0");
+	}
 	
+	@Test
+	void increaseSellerMoneyTest() {
+		SimulationManager sim = new SimulationManager();
+		sim.runSimulation(10, 10);
+		Transaction trans = new Transaction(0, 1, ProductOrServiceName.VEGETARIANFOOD, 2 , 5);
+		Person dick = new Person();
+		dick.setMoney(10);
+		trans.increaseSellerMoney(dick);
+		assertEquals(dick.getMoney(), 20, "money should be equal to 20");
+	}
 
 	@Test
 	void decreaseBuyerMoneyTest() {
+		Transaction trans = new Transaction(0, 1, ProductOrServiceName.VEGETARIANFOOD, 2 , 5);
 		Person tom = new Person();
-		tom.setMoney(11);
-		tom.decreaseMoney(10);
-		assertEquals(tom.getMoney(), 1, "money should be equal to 1");
+		tom.setMoney(10);
+		trans.decreaseBuyerMoney(tom);
+		assertEquals(tom.getMoney(), 0, "money should be equal to 0");
 	}
 	
 	@Test
@@ -33,20 +55,22 @@ class TransactionTest {
 		
 		Person buyer = SimulationManager.populationList.get(0);
 		Person tom = new Person();
+		Person seller = new Person();
 		
 		tom.setVegetarianFoodAmount(1);
-		System.out.println("tom.getVegetarianFoodAmount(): " + tom.getVegetarianFoodAmount());
+//		System.out.println("tom.getVegetarianFoodAmount(): " + tom.getVegetarianFoodAmount());
 		
 		Transaction trans = new Transaction();
 		trans.indexOfBuyerInPopulationList = 0;
 		trans.itemBought = ProductOrServiceName.VEGETARIANFOOD;
 		trans.quantity = 5;
-		trans.increaseProductOrServiceOfBuyer();
+		trans.increaseProductOrServiceOfBuyer(tom, seller);
 		
-		System.out.println("tom.getVegetarianFoodAmount(): " + tom.getVegetarianFoodAmount());
+//		System.out.println("tom.getVegetarianFoodAmount(): " + tom.getVegetarianFoodAmount());
 		
 		assertTrue(tom.getVegetarianFoodAmount() == 6, "amount should be 6");
 //		indexOfBuyerInPopulationList
 	}
+	
 
 }

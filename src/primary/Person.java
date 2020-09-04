@@ -7,7 +7,7 @@ public class Person {
 	Occupations occupation;
 	int indexOfPersonInPopulationList;
 	double money = 100;
-	int vegetarianFoodAmount = 2;
+	protected int vegetarianFoodAmount = 2;
 	int meatFoodAmount = 0;
 	int homeQuality = 100;
 	int health = 2;

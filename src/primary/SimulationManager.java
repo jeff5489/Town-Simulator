@@ -35,7 +35,7 @@ public class SimulationManager {
 //			returnInfo();
 //			reviewOnePerson();
 		}
-		printAllVegAmountOfAllPeople();
+		printVegAmountOfAllPeople();
 //		printMoneyOfAllPeople();
 	}
 	
@@ -44,7 +44,7 @@ public class SimulationManager {
 			butcher.produce();
 		}
 		for(Farmer farmer : farmerList) {
-			farmer.addToVegetarianFoodAmount(50); 
+			farmer.produce();
 		}
 	}
 	
@@ -55,10 +55,11 @@ public class SimulationManager {
 		}
 	}
 	
-	public void printAllVegAmountOfAllPeople() {
+	public void printVegAmountOfAllPeople() {
 		System.out.println("printAllVegAmountOfAllPeople() reached");
 		for(Person person : populationList) {
-			System.out.println(person.getVegetarianFoodAmount());
+			System.out.println("Veg Amount: " + person.getVegetarianFoodAmount());
+			System.out.println("Occupation: " + person.getOccupation());
 		}
 	}
 	
