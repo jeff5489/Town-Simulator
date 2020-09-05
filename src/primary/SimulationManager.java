@@ -35,8 +35,9 @@ public class SimulationManager {
 //			returnInfo();
 //			reviewOnePerson();
 		}
-		printVegAmountOfAllPeople();
+//		printVegAmountOfAllPeople();
 //		printMoneyOfAllPeople();
+//		printCropOfAllPeople();
 	}
 	
 	public void productOccupationsProduceProducts() {
@@ -47,11 +48,16 @@ public class SimulationManager {
 			farmer.produce();
 		}
 	}
-	
 	public void printMoneyOfAllPeople() {
 		System.out.println("printMoneyOfAllPeople() reached");
 		for(Person person : populationList) {
 			System.out.println(person.getMoney());
+		}
+	}
+	public void printCropOfAllPeople() {
+		System.out.println("printCropOfAllPeople() reached");
+		for(Person person : populationList) {
+			System.out.println(person.getCropAmount());
 		}
 	}
 	
@@ -155,10 +161,12 @@ public class SimulationManager {
 			butcher.setIndexOfPersonInPopulationList(indexOfPerson);
 			indexOfPerson++;
 			butcherList.add(butcher);
+//			System.out.println("butcher.getIndex: " + butcher.getIndexOfPersonInPopulationList());
 			populationList.add(butcher);
 		}
 		for(int i = 0; i < doctorInt; i++) {
 			Person person = new Person(indexOfPerson, Occupations.DOCTOR);
+//			Person person = new Person();
 			person.indexOfPersonInPopulationList = indexOfPerson;
 			indexOfPerson++;
 			populationList.add(person);

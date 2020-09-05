@@ -1,6 +1,4 @@
 // first three farmers have unusual veg amounts
-// all farmers have 4400+ veg amounts
-
 
 // To Do
 // test createTransaction in Person class
@@ -29,7 +27,7 @@ public class Main {
 		
 		SimulationManager sim = new SimulationManager();
 		// int populationSize, int daysToRun
-		sim.runSimulation(10, 100);
+		sim.runSimulation(100, 100);
 	}
 	
 	public static void testEditingList() {

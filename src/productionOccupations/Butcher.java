@@ -8,7 +8,8 @@ public class Butcher extends ProductOccupationParentModel {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Butcher(int indexOfPerson, Occupations butcher) {
+	public Butcher(int id, Occupations occupation) {
+		super(id, occupation);
 		// TODO Auto-generated constructor stub
 	}
 

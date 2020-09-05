@@ -18,10 +18,9 @@ public class Farmer extends ProductOccupationParentModel {
 	@Override
 	public void produce() {
 		if(
-//				this.getCropAmount() 
-				vegetarianFoodAmount
-				< 100) {
-			System.out.println("this.addToVegetarianFoodAmount(100) reached");
+//			this.getCropAmount() 
+			vegetarianFoodAmount
+			< 100) {
 			this.addToVegetarianFoodAmount(100); 
 		}
 	}
