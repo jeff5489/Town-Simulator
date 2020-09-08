@@ -64,7 +64,10 @@ public class Person {
 		boolean trueOrFalse;
 		if(vegetarianFoodAmount <= randVegAmount) {
 			int indexOfGrocerInPopulationList = (int)(Math.random() * ((SimulationManager.grocerList.size() - 0)));
-			Person seller = SimulationManager.populationList.get(indexOfGrocerInPopulationList);
+			
+			int grocerId = SimulationManager.grocerList.get(indexOfGrocerInPopulationList).getId();
+			
+			Person seller = SimulationManager.populationList.get(grocerId);
 			createTransaction(buyer, seller, indexOfPersonInPopulationList, indexOfGrocerInPopulationList, productOrService, 
 					randVegAmount, price);
 			trueOrFalse = true;

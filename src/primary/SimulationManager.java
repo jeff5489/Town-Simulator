@@ -35,7 +35,7 @@ public class SimulationManager {
 //			returnInfo();
 //			reviewOnePerson();
 		}
-//		printVegAmountOfAllPeople();
+		printVegAmountOfAllPeople();
 //		printMoneyOfAllPeople();
 //		printCropOfAllPeople();
 	}
