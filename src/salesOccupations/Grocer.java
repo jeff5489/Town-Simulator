@@ -13,14 +13,15 @@ public class Grocer extends Person {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Grocer(int indexOfPerson, Occupations grocer) {
+	public Grocer(int id, Occupations occupation) {
+		super(id, occupation);
 		// TODO Auto-generated constructor stub
 	}
 
 	public boolean shouldGrocerBuyCrops() {
 		boolean trueOrFalse;
 		if(this.getVegetarianFoodAmount() < 300) {
-//			buyCropsFromFarmer();
+			buyCropsFromFarmer();
 			trueOrFalse = true;
 		}else {
 			trueOrFalse = false;
@@ -34,12 +35,13 @@ public class Grocer extends Person {
 		return seller;
 	}
 	
-//	public boolean buyCropsFromFarmer() {
-//		int amountOfCropsToBuy = 300; 
-//		createTransaction(buyer, findAndReturnSeller(), buyer.getIndexOfPersonInPopulationList(), findAndReturnSeller().getIndexOfPersonInPopulationList(),
-//				ProductOrServiceName.CROPS, amountOfCropsToBuy, ProductOrServicePrice.vegPrice);
-//		return true;
-//	}
+	public boolean buyCropsFromFarmer() {
+		int amountOfCropsToBuy = 300; 
+		Person buyer = SimulationManager.populationList.get(this.getIndexOfPersonInPopulationList());
+		createTransaction(buyer, findAndReturnSeller(), buyer.getIndexOfPersonInPopulationList(), findAndReturnSeller().getIndexOfPersonInPopulationList(),
+				ProductOrServiceName.CROPS, amountOfCropsToBuy, ProductOrServicePrice.vegPrice);
+		return true;
+	}
 	
 //	(Person buyer, Person seller, int indexOfBuyerInPopulationList, int indexOfSellerInPopulationList, 
 //			int idOfBuyer, ProductOrServiceName itemBought, int quantity, double price)

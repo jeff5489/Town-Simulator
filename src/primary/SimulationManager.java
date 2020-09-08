@@ -4,6 +4,7 @@ import java.util.List;
 
 import productionOccupations.Butcher;
 import productionOccupations.Farmer;
+import salesOccupations.Grocer;
 
 public class SimulationManager {
 	
@@ -13,7 +14,7 @@ public class SimulationManager {
 	
 	public static List<Person> populationList = new ArrayList<Person>();
 	public static List<Transaction> transactionList = new ArrayList<Transaction>();
-	public static List<Person> grocerList = new ArrayList<Person>();
+	public static List<Grocer> grocerList = new ArrayList<Grocer>();
 	public static List<Butcher> butcherList = new ArrayList<Butcher>();
 	public static List<Farmer> farmerList = new ArrayList<Farmer>();
 	
@@ -29,6 +30,7 @@ public class SimulationManager {
 		while(day <= daysToRun) {
 //			System.out.println("Day: " + day);
 			productOccupationsProduceProducts();
+			salesOccupationsDailyMethodsToRun();
 			peopleUseResources();
 			checkPeoplesResources();
 //			checkResourceFluctuation();
@@ -38,6 +40,12 @@ public class SimulationManager {
 		printVegAmountOfAllPeople();
 //		printMoneyOfAllPeople();
 //		printCropOfAllPeople();
+	}
+	
+	public void salesOccupationsDailyMethodsToRun() {
+		for(Grocer grocer : grocerList) {
+			grocer.shouldGrocerBuyCrops();
+		}
 	}
 	
 	public void productOccupationsProduceProducts() {
@@ -172,11 +180,17 @@ public class SimulationManager {
 			populationList.add(person);
 		}
 		for(int i = 0; i < grocerInt; i++) {
-			Person person = new Person(indexOfPerson, Occupations.GROCER);
-			person.indexOfPersonInPopulationList = indexOfPerson;
+			Grocer grocer = new Grocer(indexOfPerson, Occupations.GROCER);
+			grocer.setIndexOfPersonInPopulationList(indexOfPerson);
 			indexOfPerson++;
-			grocerList.add(person);
-			populationList.add(person);
+			grocerList.add(grocer);
+			populationList.add(grocer);
+			
+//			Person person = new Person(indexOfPerson, Occupations.GROCER);
+//			person.indexOfPersonInPopulationList = indexOfPerson;
+//			indexOfPerson++;
+//			grocerList.add(person);
+//			populationList.add(person);
 		}
 	}
 	

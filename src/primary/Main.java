@@ -1,9 +1,10 @@
 // first three farmers have unusual veg amounts
 
 // To Do
-// test createTransaction in Person class
+
 // butcher and farmers need to produce meat and crops  READ READ READ READ READ READ READ READ 
 // grocers need to buy from farmers
+// test createTransaction in Person class
 // all people need to buy meat
 // home quality needs to decrease over time
 // home quality needs to be purchased from builders
