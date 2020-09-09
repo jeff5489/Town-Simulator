@@ -47,8 +47,19 @@ public class Transaction {
 					break;
 				}
 				if(buyer.getVegetarianFoodAmount() <= 0) {
-					System.out.println("Error in class Transaction, method increaseProductOrServiceOfBuyer. buyer.getVegetarianFoodAmount should be positive.");
+					System.out.println("Error in class Transaction, method increaseProductOrServiceOfBuyer. buyer.getVegetarianFoodAmount should be positive. " +
+				"This may be caused by this farmer being randomly selected twice to sell veg but grocer object does check if it has enough"
+				+ "to fill its order before placing order larger than amount that farmer has"
+							);
+					System.out.println("Current Day: " + SimulationManager.day);
 					System.out.println(buyer.toString2());
+					int buyerId = buyer.getId();
+					for(Transaction trans : SimulationManager.transactionList) {
+						if(trans.indexOfBuyerInPopulationList == buyerId || trans.indexOfSellerInPopulationList == buyerId) {
+							System.out.println(trans.toString2());
+//							System.out.println("Veg amount of person with negative veg: "  );
+						}
+					}
 					break;
 				}
 				if(newVegFoodAmount <= 0) {
@@ -103,4 +114,29 @@ public class Transaction {
 	public void increaseSellerMoney(Person seller) {
 		seller.increaseMoney(amountOfTransaction);
 	}
+
+	@Override
+	public String toString() {
+		return "Transaction [transactionNumber=" + transactionNumber 
+				+ ", dayOfTransaction=" + dayOfTransaction
+				+ ", itemBought=" + itemBought 
+				+ ", quantity=" + quantity 
+				+ ", priceOfProductOrService=" + priceOfProductOrService 
+				+ ", indexOfBuyerInPopulationList=" + indexOfBuyerInPopulationList
+				+ ", indexOfSellerInPopulationList=" + indexOfSellerInPopulationList 
+				+ ", amountOfTransaction=" + amountOfTransaction 
+				+ "]";
+	}
+	
+	public String toString2() {
+		return "Transaction [transactionNumber=" + transactionNumber 
+				+ ", dayOfTransaction=" + dayOfTransaction
+				+ ", itemBought=" + itemBought 
+				+ ", quantity=" + quantity 
+				+ ", indexOfBuyerInPopulationList=" + indexOfBuyerInPopulationList
+				+ ", indexOfSellerInPopulationList=" + indexOfSellerInPopulationList 
+				+ ", amountOfTransaction=" + amountOfTransaction 
+				+ "]";
+	}
+	
 }

@@ -11,7 +11,7 @@ public class Person {
 	int meatFoodAmount = 0;
 	int homeQuality = 100;
 	int health = 2;
-	int cropAmount = 0;
+	public int cropAmount = 0;
 	
 	SimulationManager simManager = new SimulationManager();
 //	protected Person buyer = SimulationManager.populationList.get(indexOfPersonInPopulationList);
@@ -63,10 +63,10 @@ public class Person {
 		double price = ProductOrServicePrice.vegPrice;
 		boolean trueOrFalse;
 		if(vegetarianFoodAmount <= randVegAmount) {
-			int indexOfGrocerInPopulationList = (int)(Math.random() * ((SimulationManager.grocerList.size() - 0)));
-			int grocerId = SimulationManager.grocerList.get(indexOfGrocerInPopulationList).getId();
+			int indexOfGrocerInGrocerList = (int)(Math.random() * ((SimulationManager.grocerList.size() - 0)));
+			int grocerId = SimulationManager.grocerList.get(indexOfGrocerInGrocerList).getId();
 			Person seller = SimulationManager.populationList.get(grocerId);
-			createTransaction(buyer, seller, indexOfPersonInPopulationList, indexOfGrocerInPopulationList, productOrService, 
+			createTransaction(buyer, seller, indexOfPersonInPopulationList, grocerId, productOrService, 
 					randVegAmount, price);
 			trueOrFalse = true;
 		}else {

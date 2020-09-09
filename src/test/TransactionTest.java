@@ -13,13 +13,15 @@ import primary.ProductOrServiceName;
 
 class TransactionTest {
 	
+	SimulationManager sim = new SimulationManager();
+	
 //	(int indexOfBuyerInPopulationList, int indexOfSellerInPopulationList, 
 //			ProductOrServiceName itemBought, int quantity, double priceOfProductOrService)
 	
 	@Test
 	void decreaseSellerStockTest() {
-		SimulationManager sim = new SimulationManager();
-		sim.runSimulation(10, 10);
+//		SimulationManager sim = new SimulationManager();
+		sim.runSimulation(100, 100);
 		Transaction trans = new Transaction(0, 1, ProductOrServiceName.VEGETARIANFOOD, 2 , 5);
 //		trans.itemBought = ProductOrServiceName.VEGETARIANFOOD;
 		Person tom = new Person();
@@ -30,8 +32,8 @@ class TransactionTest {
 	
 	@Test
 	void increaseSellerMoneyTest() {
-		SimulationManager sim = new SimulationManager();
-		sim.runSimulation(10, 10);
+//		SimulationManager sim = new SimulationManager();
+//		sim.runSimulation(10, 10);
 		Transaction trans = new Transaction(0, 1, ProductOrServiceName.VEGETARIANFOOD, 2 , 5);
 		Person dick = new Person();
 		dick.setMoney(10);
@@ -50,10 +52,10 @@ class TransactionTest {
 	
 	@Test
 	void increaseProductOrServiceOfBuyerTest() {
-		SimulationManager sim = new SimulationManager();
-		sim.createPeople(10);
+//		SimulationManager sim = new SimulationManager();
+//		sim.createPeople(10);
 		
-		Person buyer = SimulationManager.populationList.get(0);
+//		Person buyer = SimulationManager.populationList.get(0);
 		Person tom = new Person();
 		Person seller = new Person();
 		

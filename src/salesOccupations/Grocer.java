@@ -19,9 +19,10 @@ public class Grocer extends Person {
 	}
 
 	public boolean shouldGrocerBuyCrops() {
+		
 		boolean trueOrFalse;
 		if(this.getVegetarianFoodAmount() < 300) {
-			buyCropsFromFarmer();
+			buyVegFromFarmer();
 			trueOrFalse = true;
 		}else {
 			trueOrFalse = false;
@@ -29,21 +30,42 @@ public class Grocer extends Person {
 		return true;
 	}
 	
-	public Person findAndReturnSeller() {
+//	public Person getFarmerWithPositiveVegAmount() {
+//		Person seller = getRandomFarmer();
+//		if(seller.getVegetarianFoodAmount() > 400) {
+//			return seller;
+//		} else {
+//			System.out.println("seller.getVegetarianFoodAmount() > 400 ... seller.getVegetarianFoodAmount(): " + seller.getVegetarianFoodAmount());
+//			System.out.println("Seller id: " + seller.getId());
+////			getFarmerWithPositiveVegAmount();
+////			buyVegFromFarmer();
+//		}
+//		return seller;
+//	}
+	
+	public Person getFarmerWithPositiveVegAmount() {
+		Person seller;
+		do {
+			seller = getRandomFarmer();
+		}
+		while(seller.getVegetarianFoodAmount() < 400);
+		return seller;
+	}
+	
+	public Person getRandomFarmer() {
 		int indexOfFarmerInFarmerList = (int)(Math.random() * ((SimulationManager.farmerList.size() - 0)));
 		Person seller = SimulationManager.farmerList.get(indexOfFarmerInFarmerList);
 		return seller;
 	}
 	
-	public boolean buyCropsFromFarmer() {
-		int amountOfCropsToBuy = 300; 
+	public boolean buyVegFromFarmer() {
+		Person seller = getFarmerWithPositiveVegAmount();
+		int amountOfVegToBuy = 300; 
 		Person buyer = SimulationManager.populationList.get(this.getIndexOfPersonInPopulationList());
-		createTransaction(buyer, findAndReturnSeller(), buyer.getIndexOfPersonInPopulationList(), findAndReturnSeller().getIndexOfPersonInPopulationList(),
-				ProductOrServiceName.CROPS, amountOfCropsToBuy, ProductOrServicePrice.vegPrice);
+//		System.out.println("in buyCropsFromFarmer() - buyer.getOccupation(): " + buyer.getOccupation());
+		createTransaction(buyer, seller, buyer.getIndexOfPersonInPopulationList(), seller.getIndexOfPersonInPopulationList(),
+				ProductOrServiceName.VEGETARIANFOOD, amountOfVegToBuy, ProductOrServicePrice.vegPrice);
 		return true;
 	}
-	
-//	(Person buyer, Person seller, int indexOfBuyerInPopulationList, int indexOfSellerInPopulationList, 
-//			int idOfBuyer, ProductOrServiceName itemBought, int quantity, double price)
 
 }

@@ -36,14 +36,34 @@ public class SimulationManager {
 //			checkResourceFluctuation();
 //			returnInfo();
 //			reviewOnePerson();
+//			printTransactions();
 		}
 		printVegAmountOfAllPeople();
+//		printVegAmountOfGrocers();
 //		printMoneyOfAllPeople();
 //		printCropOfAllPeople();
+//		printWhatINeedRightNow();
+	}
+	
+	public void printWhatINeedRightNow() {
+		for(Grocer grocer : grocerList) {
+			System.out.println("grocer.getCropAmount(): " + grocer.getCropAmount());
+//			System.out.println("grocer.cropAmount: " + grocer.cropAmount);
+		}
+	}
+	
+	public void printTransactions() {
+		for(Transaction trans : transactionList) {
+			if(trans.itemBought == ProductOrServiceName.CROPS) {
+				System.out.println("Transaction: " + trans.toString());
+			}
+		}
 	}
 	
 	public void salesOccupationsDailyMethodsToRun() {
+//		System.out.println("salesOccupationsDailyMethodsToRun reached");
 		for(Grocer grocer : grocerList) {
+//			System.out.println("Grocer id: " + grocer.getId());
 			grocer.shouldGrocerBuyCrops();
 		}
 	}
@@ -73,7 +93,15 @@ public class SimulationManager {
 		System.out.println("printAllVegAmountOfAllPeople() reached");
 		for(Person person : populationList) {
 			System.out.println("Veg Amount: " + person.getVegetarianFoodAmount());
-			System.out.println("Occupation: " + person.getOccupation());
+			System.out.println("person.getId(): " + person.getId() + " Occupation: " + person.getOccupation());
+		}
+	}
+	
+	public void printVegAmountOfGrocers() {
+		System.out.println("printAllVegAmountOfGrocers() reached");
+		for(Person person : grocerList) {
+			System.out.println("Veg Amount: " + person.getVegetarianFoodAmount());
+			System.out.println("person.getId(): " + person.getId() + " Occupation: " + person.getOccupation());
 		}
 	}
 	
@@ -154,6 +182,7 @@ public class SimulationManager {
 		for(int i = 0; i < farmerInt; i++) {
 			Farmer farmer = new Farmer(indexOfPerson, Occupations.FARMER);
 			farmer.setIndexOfPersonInPopulationList(indexOfPerson);
+			farmer.setVegetarianFoodAmount(500);
 			indexOfPerson++;
 			farmerList.add(farmer);
 			populationList.add(farmer);
