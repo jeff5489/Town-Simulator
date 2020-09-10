@@ -17,8 +17,3 @@ public enum Occupations {
 // textile manufacturer - produces 
 // government worker
 // general laborer - produces sometimes
-//
-//
-//
-//
-//

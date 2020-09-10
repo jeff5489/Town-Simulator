@@ -5,6 +5,8 @@ import java.util.List;
 import productionOccupations.Butcher;
 import productionOccupations.Farmer;
 import salesOccupations.Grocer;
+import serviceOccupations.Builder;
+import serviceOccupations.Doctor;
 
 public class SimulationManager {
 	
@@ -17,6 +19,8 @@ public class SimulationManager {
 	public static List<Grocer> grocerList = new ArrayList<Grocer>();
 	public static List<Butcher> butcherList = new ArrayList<Butcher>();
 	public static List<Farmer> farmerList = new ArrayList<Farmer>();
+	public static List<Builder> builderList = new ArrayList<Builder>();
+	public static List<Doctor> doctorList = new ArrayList<Doctor>();
 	
 	public SimulationManager() {
 	}
@@ -38,18 +42,41 @@ public class SimulationManager {
 //			reviewOnePerson();
 //			printTransactions();
 		}
-		printVegAmountOfAllPeople();
+//		printHomeQualityOfAllPeople();
+//		printHealthOfAllPeople();
+//		printMeatAmountOfAllPeople();
+//		printVegAmountOfAllPeople();
 //		printVegAmountOfGrocers();
 //		printMoneyOfAllPeople();
 //		printCropOfAllPeople();
 //		printWhatINeedRightNow();
 	}
 	
-	public void printWhatINeedRightNow() {
-		for(Grocer grocer : grocerList) {
-			System.out.println("grocer.getCropAmount(): " + grocer.getCropAmount());
-//			System.out.println("grocer.cropAmount: " + grocer.cropAmount);
+	public void printHomeQualityOfAllPeople() {
+		for(Person person : populationList) {
+			System.out.println("id: " + person.getId() + " home quality: " + person.getHomeQuality());
 		}
+	}
+	
+	public void printHealthOfAllPeople() {
+		System.out.println("printHealthOfAllPeople() reached");
+		for(Person person : populationList) {
+			System.out.println("id: " + person.getId() + " health: " + person.getHealth());
+		}
+	}
+	
+	public void printMeatAmountOfAllPeople() {
+		for(Person person : populationList) {
+			System.out.println("id: " + person.getId() + " meat amount: " + person.getMeatFoodAmount());
+		}
+	}
+	
+	public void printWhatINeedRightNow() {
+		System.out.println("printWhatINeedRightNow() reached");
+//		for(Grocer grocer : grocerList) {
+//			System.out.println("grocer.getCropAmount(): " + grocer.getCropAmount());
+////			System.out.println("grocer.cropAmount: " + grocer.cropAmount);
+//		}
 	}
 	
 	public void printTransactions() {
@@ -61,7 +88,6 @@ public class SimulationManager {
 	}
 	
 	public void salesOccupationsDailyMethodsToRun() {
-//		System.out.println("salesOccupationsDailyMethodsToRun reached");
 		for(Grocer grocer : grocerList) {
 //			System.out.println("Grocer id: " + grocer.getId());
 			grocer.shouldGrocerBuyCrops();
@@ -115,12 +141,10 @@ public class SimulationManager {
 	
 	public void reviewOnePerson() {
 		Person person = populationList.get(0);
-//		System.out.println("Day: " + day);
 		System.out.println("Person 0 veg food: " + person.vegetarianFoodAmount);
 	}
 	
 	public void returnInfo() {
-//		System.out.println("returnInfo method reached");
 		int totalVegFoodInTransactions = 0; 
 		for(Transaction trans : transactionList) {
 			totalVegFoodInTransactions += trans.quantity;
@@ -128,10 +152,7 @@ public class SimulationManager {
 		System.out.println("quantity of vegfood in transactions: " + totalVegFoodInTransactions);
 	}
 	
-	public void checkPeoplesResources() {
-//		System.out.println("checkPeoplesResources method reached");
-		// for each person in popList create transaction to increase changing field in low
-		
+	public void checkPeoplesResources() {		
 		for(Person person : populationList) {
 			person.decideToBuySomething();
 		}
@@ -139,26 +160,23 @@ public class SimulationManager {
 	}
 	
 	public void peopleUseResources() {
-//		System.out.println("peopleUseResources method reached");
 		for(Person person : populationList) {
 			person.setVegetarianFoodAmount(person.vegetarianFoodAmount - 1);
+			person.decreaseMeatFood(1);
+			person.decreaseHomeQuality(1);
+			person.decreaseHealth(1);
 		}
 	}
 	
 	public void createPeople(int populationSize) {
-//		System.out.println("createPeople method reached");
 		
 		int indexOfPerson = 0;
-		
-		// assign percentages 
 		
 		double farmerPercent = .87;
 		double grocerPercent =.03;
 		double builderPercent = .05;
 		double butcherPercent = .04;
 		double doctorPercent =.01;
-		
-		// turn percentages into actual integers
 		
 		double farmerDouble = populationSize * farmerPercent;
 		int farmerInt = (int) Math.round(farmerDouble);
@@ -171,14 +189,6 @@ public class SimulationManager {
 		double grocerDouble = populationSize * grocerPercent;
 		int grocerInt = (int) Math.round(grocerDouble);
 		
-//		System.out.println("Number of Farmers: " + farmerInt);
-//		System.out.println("Number of Builders: " + builderInt);
-//		System.out.println("Number of Butchers: " + butcherInt);
-//		System.out.println("Number of Doctors: " + doctorInt);
-//		System.out.println("Number of Grocers: " + grocerInt);
-						
-		// construct persons and assign ids and occupations
-		
 		for(int i = 0; i < farmerInt; i++) {
 			Farmer farmer = new Farmer(indexOfPerson, Occupations.FARMER);
 			farmer.setIndexOfPersonInPopulationList(indexOfPerson);
@@ -188,25 +198,26 @@ public class SimulationManager {
 			populationList.add(farmer);
 		}
 		for(int i = 0; i < builderInt; i++) {
-			Person person = new Person(indexOfPerson, Occupations.BUILDER);
-			person.indexOfPersonInPopulationList = indexOfPerson;
+			Builder builder = new Builder(indexOfPerson, Occupations.BUILDER);
+			builder.setIndexOfPersonInPopulationList(indexOfPerson);
 			indexOfPerson++;
-			populationList.add(person);
+			builderList.add(builder);
+			populationList.add(builder);
 		}
 		for(int i = 0; i < butcherInt; i++) {
 			Butcher butcher = new Butcher(indexOfPerson, Occupations.BUTCHER);
 			butcher.setIndexOfPersonInPopulationList(indexOfPerson);
+			butcher.setMeatFoodAmount(100);
 			indexOfPerson++;
 			butcherList.add(butcher);
-//			System.out.println("butcher.getIndex: " + butcher.getIndexOfPersonInPopulationList());
 			populationList.add(butcher);
 		}
 		for(int i = 0; i < doctorInt; i++) {
-			Person person = new Person(indexOfPerson, Occupations.DOCTOR);
-//			Person person = new Person();
-			person.indexOfPersonInPopulationList = indexOfPerson;
+			Doctor doctor = new Doctor(indexOfPerson, Occupations.DOCTOR);
+			doctor.setIndexOfPersonInPopulationList(indexOfPerson);
 			indexOfPerson++;
-			populationList.add(person);
+			doctorList.add(doctor);
+			populationList.add(doctor);
 		}
 		for(int i = 0; i < grocerInt; i++) {
 			Grocer grocer = new Grocer(indexOfPerson, Occupations.GROCER);
@@ -214,12 +225,6 @@ public class SimulationManager {
 			indexOfPerson++;
 			grocerList.add(grocer);
 			populationList.add(grocer);
-			
-//			Person person = new Person(indexOfPerson, Occupations.GROCER);
-//			person.indexOfPersonInPopulationList = indexOfPerson;
-//			indexOfPerson++;
-//			grocerList.add(person);
-//			populationList.add(person);
 		}
 	}
 	
@@ -238,9 +243,7 @@ public class SimulationManager {
 	public List<Transaction> getTransactionList() {
 		return transactionList;
 	}
-	
 
-	
 	public int getCurrentTransactionNumber() {
 		return currentTransactionNumber;
 	}
@@ -248,12 +251,5 @@ public class SimulationManager {
 	public void setCurrentTransactionNumber(int currentTransactionNumber) {
 		this.currentTransactionNumber = currentTransactionNumber;
 	}
-
-//	public void addToTransactionList2(Transaction trans) {
-//		transactionList.add(trans);
-//		
-//	}
-	
-	
 	
 }

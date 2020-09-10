@@ -1,9 +1,14 @@
-// first three farmers have unusual veg amounts
 
 // To Do
 
-// butcher and farmers need to produce meat and crops  READ READ READ READ READ READ READ READ 
-// grocers need to buy from farmers
+// people need to buy from butcher - done
+// homes need to deteriorate
+// builder needs to improve home quality
+// people's health need to have illness events
+// doctor needs to provide health services
+// 
+
+
 // test createTransaction in Person class
 // all people need to buy meat
 // home quality needs to decrease over time
@@ -29,21 +34,5 @@ public class Main {
 		SimulationManager sim = new SimulationManager();
 		// int populationSize, int daysToRun
 		sim.runSimulation(100, 100);
-	}
-	
-	public static void testEditingList() {
-		Person person1 = new Person();
-		person1.setAge(10);
-		Person person2 = new Person();
-		person2.setAge(100);
-		SimulationManager.populationList.add(person1);
-		SimulationManager.populationList.add(person2);
-		for(Person person : SimulationManager.populationList) {
-			System.out.println(person.toStringMinimal());
-		}
-		Person personRef0 = SimulationManager.populationList.get(0);
-		personRef0.setAge(99);
-		System.out.println("personRef0.toString(): " + personRef0.toString());
-
 	}
 }

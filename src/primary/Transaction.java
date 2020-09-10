@@ -3,8 +3,6 @@ package primary;
 public class Transaction {
 	public int transactionNumber;
 	public int dayOfTransaction;
-//	public int idOfBuyer;
-//	public int idOfSeller;
 	public ProductOrServiceName itemBought;
 	public int quantity;
 	public double priceOfProductOrService;
@@ -17,7 +15,6 @@ public class Transaction {
 	public Transaction(int indexOfBuyerInPopulationList, int indexOfSellerInPopulationList, 
 			ProductOrServiceName itemBought, int quantity, double priceOfProductOrService) {
 		super();
-//		this.idOfBuyer = idOfBuyer;
 		this.itemBought = itemBought;
 		this.quantity = quantity;
 		this.priceOfProductOrService = priceOfProductOrService;
@@ -27,7 +24,6 @@ public class Transaction {
 	}
 	
 	public void reallocateResources(Person buyer, Person seller) {
-		
 		decreaseBuyerMoney(buyer);
 		increaseProductOrServiceOfBuyer(buyer, seller);
 		decreaseSellerStock(seller);
@@ -57,7 +53,6 @@ public class Transaction {
 					for(Transaction trans : SimulationManager.transactionList) {
 						if(trans.indexOfBuyerInPopulationList == buyerId || trans.indexOfSellerInPopulationList == buyerId) {
 							System.out.println(trans.toString2());
-//							System.out.println("Veg amount of person with negative veg: "  );
 						}
 					}
 					break;
@@ -66,26 +61,18 @@ public class Transaction {
 					System.out.println("Error in class Transaction, method increaseProductOrServiceOfBuyer. newVegFoodAmount should be positive.");
 					break;
 				}
-//				SimulationManager.populationList.get(indexOfBuyerInPopulationList).setVegetarianFoodAmount(newVegFoodAmount);
-//				buyer.setVegetarianFoodAmount(newVegFoodAmount);
 				buyer.addToVegetarianFoodAmount(quantity);
-				
 				break;
 			case CROPS:
-				int newCropAmount = buyer.cropAmount + quantity;
-//				buyer.setCropAmount(newCropAmount);
 				break;
 			case BUILDERSERVICE:
-				int newhomeQualityAmount = buyer.homeQuality + quantity;
-//				buyer.setHomeQuality(newhomeQualityAmount);
+				buyer.increaseHomeQuality(quantity);
 				break;
 			case MEAT:
-				int newMeatAmount = buyer.meatFoodAmount + quantity;
-//				buyer.setMeatFoodAmount(newMeatAmount);
+				buyer.addMeatFood(quantity);
 				break;
 			case DOCTORSERVICE:
-				int newhealthAmount = buyer.health + quantity;
-//				buyer.setHealth(newhealthAmount);
+				buyer.increaseHealth(quantity);
 				break;
 		}
 	}
@@ -98,14 +85,11 @@ public class Transaction {
 			seller.setVegetarianFoodAmount(newVegFoodAmount);
 			break;
 		case CROPS:
-//			int newCropAmount = seller.cropAmount - quantity;
-//			seller.setCropAmount(newCropAmount);
 			break;
 		case BUILDERSERVICE:
 			break;
 		case MEAT:
-//			int newMeatAmount = seller.meatFoodAmount - quantity;
-//			seller.setMeatFoodAmount(newMeatAmount);
+			seller.decreaseMeatFood(quantity);
 			break;
 		case DOCTORSERVICE:
 			break;

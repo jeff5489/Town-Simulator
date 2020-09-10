@@ -5,15 +5,7 @@ import primary.Person;
 
 public class Farmer extends ProductOccupationParentModel {
 
-	public Farmer() {
-		// TODO Auto-generated constructor stub
-	}
-	
-//	public Farmer(int indexOfPerson, Occupations farmer) {
-//		// TODO Auto-generated constructor stub
-//	}
-	
-	
+	public Farmer() {}
 
 	@Override
 	public void produce() {
@@ -24,6 +16,5 @@ public class Farmer extends ProductOccupationParentModel {
 
 	public Farmer(int id, Occupations occupation) {
 		super(id, occupation);
-		// TODO Auto-generated constructor stub
 	}
 }

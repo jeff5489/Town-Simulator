@@ -9,17 +9,13 @@ import productionOccupations.ProductOccupationParentModel;
 
 public class Grocer extends Person {
 
-	public Grocer() {
-		// TODO Auto-generated constructor stub
-	}
+	public Grocer() {}
 	
 	public Grocer(int id, Occupations occupation) {
 		super(id, occupation);
-		// TODO Auto-generated constructor stub
 	}
 
 	public boolean shouldGrocerBuyCrops() {
-		
 		boolean trueOrFalse;
 		if(this.getVegetarianFoodAmount() < 300) {
 			buyVegFromFarmer();
@@ -29,19 +25,6 @@ public class Grocer extends Person {
 		}
 		return true;
 	}
-	
-//	public Person getFarmerWithPositiveVegAmount() {
-//		Person seller = getRandomFarmer();
-//		if(seller.getVegetarianFoodAmount() > 400) {
-//			return seller;
-//		} else {
-//			System.out.println("seller.getVegetarianFoodAmount() > 400 ... seller.getVegetarianFoodAmount(): " + seller.getVegetarianFoodAmount());
-//			System.out.println("Seller id: " + seller.getId());
-////			getFarmerWithPositiveVegAmount();
-////			buyVegFromFarmer();
-//		}
-//		return seller;
-//	}
 	
 	public Person getFarmerWithPositiveVegAmount() {
 		Person seller;
@@ -62,10 +45,8 @@ public class Grocer extends Person {
 		Person seller = getFarmerWithPositiveVegAmount();
 		int amountOfVegToBuy = 300; 
 		Person buyer = SimulationManager.populationList.get(this.getIndexOfPersonInPopulationList());
-//		System.out.println("in buyCropsFromFarmer() - buyer.getOccupation(): " + buyer.getOccupation());
 		createTransaction(buyer, seller, buyer.getIndexOfPersonInPopulationList(), seller.getIndexOfPersonInPopulationList(),
 				ProductOrServiceName.VEGETARIANFOOD, amountOfVegToBuy, ProductOrServicePrice.vegPrice);
 		return true;
 	}
-
 }

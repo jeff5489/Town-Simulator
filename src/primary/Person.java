@@ -9,40 +9,32 @@ public class Person {
 	double money = 100;
 	protected int vegetarianFoodAmount = 2;
 	int meatFoodAmount = 0;
-	int homeQuality = 100;
-	int health = 2;
+	int homeQuality = 1000;
+	int health = 1000;
 	public int cropAmount = 0;
 	
 	SimulationManager simManager = new SimulationManager();
-//	protected Person buyer = SimulationManager.populationList.get(indexOfPersonInPopulationList);
-//	protected Person buyer;
 	
-	public Person() {
-//		buyer = SimulationManager.populationList.get(indexOfPersonInPopulationList);
-	}
+	public Person() {}
 
 	public Person(int id, Occupations occupation) {
 		super();
 		this.id = id;
 		this.occupation = occupation;
-//		this.buyer = SimulationManager.populationList.get(indexOfPersonInPopulationList);
 	}
 	
 	public void decideToBuySomething() {
 		Person buyer = SimulationManager.populationList.get(indexOfPersonInPopulationList);
-
-		
 		shouldPersonBuyVegFood(buyer);
-//		shouldPersonBuyMeat(buyer);
-//		shouldPersonBuyBuilderService(buyer);
-//		shouldPersonBuyDoctorService(buyer);
+		shouldPersonBuyMeat(buyer);
+		shouldPersonBuyBuilderService(buyer);
+		shouldPersonBuyDoctorService(buyer);
 	}
 	
 	public Transaction createTransaction(Person buyer, Person seller, int indexOfBuyerInPopulationList, int indexOfSellerInPopulationList, 
 			ProductOrServiceName itemBought, int quantity, double price) {
 		Transaction transaction = new Transaction(indexOfBuyerInPopulationList, indexOfSellerInPopulationList, 
 				itemBought, quantity, price);
-//		transaction.idOfSeller = (int)(Math.random() * ((SimulationManager.grocerList.size() - 0)));
 		transaction.dayOfTransaction = SimulationManager.day;
 		transaction.transactionNumber = SimulationManager.currentTransactionNumber;
 		SimulationManager.currentTransactionNumber++;
@@ -74,14 +66,69 @@ public class Person {
 		}
 		return trueOrFalse;
 	}
-	public void shouldPersonBuyMeat(){
-			
+	
+	public boolean shouldPersonBuyMeat(Person buyer){
+		boolean trueOrFalse;
+		ProductOrServiceName productOrService = ProductOrServiceName.MEAT;
+		int minMeatAmount = 1;
+		int maxMeatAmount = 4;
+		int randMeatAmount = 1 + (int)(Math.random() * ((maxMeatAmount - minMeatAmount) + 1));
+		double price = ProductOrServicePrice.meatPrice;
+		if(meatFoodAmount <= randMeatAmount) {
+			int indexOfButcherInButcherList = (int)(Math.random() * ((SimulationManager.butcherList.size() - 0)));
+			int butcherId = SimulationManager.butcherList.get(indexOfButcherInButcherList).getId();
+			Person seller = SimulationManager.populationList.get(butcherId);
+			createTransaction(buyer, seller, indexOfPersonInPopulationList, butcherId, productOrService, 
+					randMeatAmount, price);
+			trueOrFalse = true;
+		}else {
+			trueOrFalse = false;
+		}
+		return trueOrFalse;
 	}
-	public void shouldPersonBuyBuilderService() {
-		
+	
+	public boolean shouldPersonBuyBuilderService(Person buyer) {
+		boolean trueOrFalse;
+		ProductOrServiceName productOrService = ProductOrServiceName.BUILDERSERVICE;
+		int minHomeQualityAmount = 1;
+		int maxHomeQualityAmount = 900;
+		int randHomeQualityAmount = 1 + (int)(Math.random() * ((maxHomeQualityAmount - minHomeQualityAmount) + 1));
+		int randomChance = 1 + (int)(Math.random() * ((1000 - 1) + 1));
+		double price = ProductOrServicePrice.builderPrice;
+		if(homeQuality <= randHomeQualityAmount && randomChance == 5) {
+			int indexOfBuilderInBuilderList = (int)(Math.random() * ((SimulationManager.builderList.size() - 0)));
+			int builderId = SimulationManager.builderList.get(indexOfBuilderInBuilderList).getId();
+			Person seller = SimulationManager.populationList.get(builderId);
+			createTransaction(buyer, seller, indexOfPersonInPopulationList, builderId, productOrService, 
+					100, price);
+			trueOrFalse = true;
+		}else {
+			trueOrFalse = false;
+		}
+		return trueOrFalse;
 	}
-	public void shouldPersonBuyDoctorService() {
-		
+	public boolean shouldPersonBuyDoctorService(Person buyer) {
+		boolean trueOrFalse;
+		ProductOrServiceName productOrService = ProductOrServiceName.DOCTORSERVICE;
+		int minHealth = 1;
+		int maxHealth = 950;
+		int randHealthAmount = 1 + (int)(Math.random() * ((maxHealth - minHealth) + 1));
+//		System.out.println("randHealthAmount: " + randHealthAmount);
+		double price = ProductOrServicePrice.doctorPrice;
+		int randomChance = 1 + (int)(Math.random() * ((1000 - 1) + 1));
+//		System.out.println("randomChance: " + randomChance);
+		if(health <= randHealthAmount && randomChance == 5) {
+			System.out.println("health <= randHealthAmount && randomChance == 5 ... randomChance: " + randomChance);
+			int indexOfDoctorInDoctorList = (int)(Math.random() * ((SimulationManager.builderList.size() - 0)));
+			int doctorId = SimulationManager.builderList.get(indexOfDoctorInDoctorList).getId();
+			Person seller = SimulationManager.populationList.get(doctorId);
+			createTransaction(buyer, seller, indexOfPersonInPopulationList, doctorId, productOrService, 
+					100, price);
+			trueOrFalse = true;
+		}else {
+			trueOrFalse = false;
+		}
+		return trueOrFalse;
 	}
 
 	public int getId() {
@@ -95,10 +142,6 @@ public class Person {
 	public Occupations getOccupation() {
 		return occupation;
 	}
-	
-//	public String getName() {
-//		return name;
-//	}
 
 	public double getMoney() {
 		return money;
@@ -138,7 +181,7 @@ public class Person {
 	public void addMeatFood(int meatFoodAmount) {
 		this.meatFoodAmount += meatFoodAmount;
 	}
-	public void deductMeatFood(int meatFoodAmount) {
+	public void decreaseMeatFood(int meatFoodAmount) {
 		this.meatFoodAmount -= meatFoodAmount;
 	}
 
@@ -153,9 +196,17 @@ public class Person {
 	public int getHomeQuality() {
 		return homeQuality;
 	}
+	
+	public void decreaseHomeQuality(int amountToDecrease) {
+		this.homeQuality -= amountToDecrease;
+	}
 
 	public void setHomeQuality(int homeQuality) {
 		this.homeQuality = homeQuality;
+	}
+	
+	public void increaseHomeQuality(int amountToIncrease) {
+		this.homeQuality += amountToIncrease;
 	}
 
 	public int getHealth() {
@@ -164,6 +215,14 @@ public class Person {
 
 	public void setHealth(int health) {
 		this.health = health;
+	}
+	
+	public void decreaseHealth(int amountToDecrease) {
+		this.health -= amountToDecrease;
+	}
+	
+	public void increaseHealth(int amountToincrease) {
+		this.health += amountToincrease;
 	}
 	
 	public int getCropAmount() {
